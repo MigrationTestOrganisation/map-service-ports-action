@@ -1,0 +1,10 @@
+name: 'Map service ports'
+description: 'Maps different port to GitHub services'
+inputs:
+  services_json:
+    description: Which services to map (JSON object of the hostname to the port)
+    default: '{}'
+    required: false
+runs:
+  using: 'node12'
+  main: 'src/index.js'
