@@ -5,7 +5,8 @@ const core = require('@actions/core');
 module.exports = async (services) => {
     core.debug('Install necessary tools.');
     await shell(`
-        apk add --no-cache socat
+        apt-get update
+        apt-get install -y socat
     `);
 
     const keys = Object.keys(services);
@@ -25,4 +26,3 @@ module.exports = async (services) => {
 
     core.debug(`Finished`);
 }
-
