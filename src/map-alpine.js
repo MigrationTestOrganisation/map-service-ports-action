@@ -19,7 +19,7 @@ module.exports = async (services) => {
         const ipAddress = await shell(`getent hosts ${key} | awk '{ print $1 }'`);
         core.info(`Using ip ${ipAddress}`);
 
-        await shell(`nohup socat tcp-l:${port},fork,reuseaddr tcp:${ipAddress}:${port} &`);
+        await shell(`socat tcp-l:${port},fork,reuseaddr tcp:${ipAddress}:${port} & disown; exit`);
 
         core.info(`Finished`);
         core.endGroup();
