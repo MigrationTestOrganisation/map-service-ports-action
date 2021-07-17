@@ -18,4 +18,4 @@ runs:
 
         # Setup forwarding
         export IP_ADDRESS=$(getent hosts ${{ inputs.service }} | awk '{ print $1 }')
-        socat tcp-l:${port},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }} & disown; exit
+        nohup socat tcp-l:${port},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }}
