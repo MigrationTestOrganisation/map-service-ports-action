@@ -1,10 +1,21 @@
 name: 'Map service ports'
 description: 'Maps different port to GitHub services'
 inputs:
-  services_json:
-    description: Which services to map (JSON object of the hostname to the port)
-    default: '{}'
-    required: false
+  service:
+    description: Name of the service
+    required: true
+  port:
+    description: Port that should be allocated
+    required: true
 runs:
-  using: 'node12'
-  main: 'src/index.js'
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        # Pre-requisities
+        apt-get update
+        apt-get install -y socat
+
+        # Setup forwarding
+        export IP_ADDRESS=$(getent hosts ${{ inputs.service }} | awk '{ print $1 }')
+        socat tcp-l:${port},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }} & disown; exit
