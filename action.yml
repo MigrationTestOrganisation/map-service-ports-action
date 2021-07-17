@@ -18,5 +18,5 @@ runs:
 
         # Setup forwarding
         export IP_ADDRESS=$(getent hosts ${{ inputs.service }} | awk '{ print $1 }')
-        echo "socat tcp-l:${port},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }}"
-        nohup socat tcp-l:${port},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }}
+        echo "socat tcp-l:${{ inputs.port }},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }}"
+        nohup socat tcp-l:${{ inputs.port }},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }}
