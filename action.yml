@@ -4,7 +4,7 @@ inputs:
   service:
     description: Name of the service
     required: true
-  port:
+  ports:
     description: Port that should be allocated
     required: true
 runs:
@@ -18,4 +18,9 @@ runs:
 
         # Setup forwarding
         export IP_ADDRESS=$(getent hosts ${{ inputs.service }} | awk '{ print $1 }')
-        nohup socat tcp-l:${{ inputs.port }},fork,reuseaddr tcp:$IP_ADDRESS:${{ inputs.port }} &
+        export PORTS="${{ inputs.service }}"
+
+        for $PORT in $PORTS
+        do
+          nohup socat tcp-l:${{ inputs.port }},fork,reuseaddr tcp:$IP_ADDRESS:$PORT &
+        done
