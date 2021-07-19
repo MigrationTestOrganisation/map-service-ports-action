@@ -20,7 +20,7 @@ runs:
         export IP_ADDRESS=$(getent hosts ${{ inputs.service }} | awk '{ print $1 }')
         export PORTS="${{ inputs.service }}"
 
-        for $PORT in $PORTS
+        for PORT in $PORTS
         do
           echo "Mapping port $PORT"
           nohup socat tcp-l:$PORT,fork,reuseaddr tcp:$IP_ADDRESS:$PORT &
