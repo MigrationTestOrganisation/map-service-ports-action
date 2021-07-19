@@ -22,5 +22,6 @@ runs:
 
         for $PORT in $PORTS
         do
-          nohup socat tcp-l:${{ inputs.port }},fork,reuseaddr tcp:$IP_ADDRESS:$PORT &
+          echo "Mapping port $PORT"
+          nohup socat tcp-l:$PORT,fork,reuseaddr tcp:$IP_ADDRESS:$PORT &
         done
