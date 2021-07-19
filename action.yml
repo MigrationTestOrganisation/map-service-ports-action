@@ -18,7 +18,7 @@ runs:
 
         # Setup forwarding
         export IP_ADDRESS=$(getent hosts ${{ inputs.service }} | awk '{ print $1 }')
-        export PORTS="${{ inputs.service }}"
+        export PORTS="${{ inputs.ports }}"
 
         for PORT in $PORTS
         do
