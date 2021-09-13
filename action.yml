@@ -13,8 +13,13 @@ runs:
     - shell: sh
       run: |
         # Pre-requisities
-        apt-get update
-        apt-get install -y socat
+        if [command -v apt-get > /dev/null]
+        then
+           apt-get update
+           apt-get install -y socat
+        else
+           apk add --no-cache socat
+        fi
 
         # Setup forwarding
         export IP_ADDRESS=$(getent hosts ${{ inputs.service }} | awk '{ print $1 }')
