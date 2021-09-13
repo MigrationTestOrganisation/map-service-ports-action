@@ -13,7 +13,7 @@ runs:
     - shell: sh
       run: |
         # Pre-requisities
-        if [command -v apt-get > /dev/null]
+        if command -v apt-get &> /dev/null
         then
            apt-get update
            apt-get install -y socat
