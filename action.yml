@@ -10,7 +10,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - shell: bash
+    - shell: sh
       run: |
         # Pre-requisities
         apt-get update
