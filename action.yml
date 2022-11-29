@@ -14,6 +14,7 @@ runs:
       run: |
         # Pre-requisities
         if [ `which apt` ]; then
+           apt-key update > /dev/null 2>&1 || true
            apt-get update > /dev/null 2>&1 || true
            apt-get install -y socat
         elif [ `which apk` ]; then
