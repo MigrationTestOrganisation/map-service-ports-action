@@ -14,7 +14,9 @@ runs:
       run: |
         # Pre-requisities
         if [ `which apt` ]; then
-           apt-key update 
+           apt-get install debian-keyring
+           apt-get install debian-archive-keyring
+  
            apt-get update
            apt-get install -y socat
         elif [ `which apk` ]; then
