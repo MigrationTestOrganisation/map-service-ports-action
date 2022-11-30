@@ -20,7 +20,7 @@ runs:
 
            echo "$KEY_IDS" | while read -r KEY_ID; do
              echo "KEY_ID"
-             //apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$KEY_ID"
+             #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$KEY_ID"
            done
 
            apt-get update
