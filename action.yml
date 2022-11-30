@@ -14,12 +14,8 @@ runs:
       run: |
         # Pre-requisities
         if [ `which apt` ]; then
-           EXPIRED="$(apt-key list | grep expired)"
-
-           KEY_IDS="$(echo "$EXPIRED" | awk '{print $2}' | cut -d '/' -f 2)"
-           echo "$KEY_IDS" | while read -r KEY_ID; do
-             apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$KEY_ID"
-           done
+           apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1 sudo apt-key adv --keyserver pgp.mit.edu --recv-keys
+           apt-key adv --refresh-keys
         
            apt-key update
            apt-get update
