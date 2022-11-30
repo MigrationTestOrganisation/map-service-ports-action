@@ -18,8 +18,10 @@ runs:
         
            KEY_IDS="$(echo "$EXPIRED" | awk '{print $2}' | cut -d '/' -f 2)"
 
-           echo "Key IDs: $KEY_IDS"
-  
+           echo "$KEY_IDS" | while read -r KEY_ID; do
+             echo "KEY_ID"
+             //apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$KEY_ID"
+           done
 
            apt-get update
            apt-get install -y socat
