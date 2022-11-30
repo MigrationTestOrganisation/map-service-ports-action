@@ -18,13 +18,15 @@ runs:
         
            echo "EXPIRED: $EXPIRED"
         
-           KEY_ID="$(echo "$EXPIRED" | awk '{print $3}' | cut -d '/' -f 2)"
-        
-           echo "KEY ID: $KEY_ID"
-        
-           // Update the key
-           apt-key adv --keyserver eys.gnupg.net --recv-keys $KEY_ID
-        
+           KEY_IDS="$(echo "$EXPIRED" | awk '{print $2}' | cut -d '/' -f 2)"
+
+           # Loop over the key ids and remove them
+           while read -r KEY_ID; do
+             echo "Updating key ${KEY_ID}"
+             apt-key adv --keyserver eys.gnupg.net --recv-keys $KEY_ID
+           done <<< "$KEY_IDS"
+  
+
            apt-get update
            apt-get install -y socat
         elif [ `which apk` ]; then
