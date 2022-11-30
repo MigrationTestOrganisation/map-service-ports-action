@@ -16,12 +16,16 @@ runs:
         if [ `which apt` ]; then
            EXPIRED="$(apt-key list | grep expired)"
         
+           echo "EXPIRED: $EXPIRED"
+        
            KEY_IDS="$(echo "$EXPIRED" | awk '{print $2}' | cut -d '/' -f 2)"
 
-           echo "$KEY_IDS" | while read -r KEY_ID; do
-             echo "KEY_ID"
-             #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$KEY_ID"
-           done
+           # Loop over the key ids and remove them
+           while read -r KEY_ID; do
+             echo "Updating key ${KEY_ID}"
+             apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $KEY_ID
+           done <<< "$KEY_IDS"
+  
 
            apt-get update
            apt-get install -y socat
