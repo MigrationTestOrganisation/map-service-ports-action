@@ -14,8 +14,7 @@ runs:
       run: |
         # Pre-requisities
         if [ `which apt` ]; then
-           apt-get install debian-keyring
-           apt-get install debian-archive-keyring
+           cat /etc/apt/sources.list
   
            apt-get update
            apt-get install -y socat
