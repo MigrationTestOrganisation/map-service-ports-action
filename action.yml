@@ -16,14 +16,9 @@ runs:
         if [ `which apt` ]; then
            EXPIRED="$(apt-key list | grep expired)"
         
-           echo "EXPIRED: $EXPIRED"
-        
            KEY_IDS="$(echo "$EXPIRED" | awk '{print $2}' | cut -d '/' -f 2)"
 
-           # Loop over the key ids and remove them
-           while read -r line; do
-             echo "line: $line"
-           done <<< "$KEY_IDS"
+           echo "Key IDs: $KEY_IDS"
   
 
            apt-get update
