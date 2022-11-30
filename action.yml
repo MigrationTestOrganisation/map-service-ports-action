@@ -15,7 +15,7 @@ runs:
         # Pre-requisities
         if [ `which apt` ]; then
            apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
-           apt-key adv --refresh-keys
+           apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
         
            apt-key update
            apt-get update
