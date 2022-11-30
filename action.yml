@@ -14,8 +14,14 @@ runs:
       run: |
         # Pre-requisities
         if [ `which apt` ]; then
-           cat /etc/apt/sources.list
-  
+           EXPIRED="$(apt-key list | grep expired)"
+           KEY_ID="$(echo "$EXPIRED" | awk '{print $3}' | cut -d '/' -f 2)"
+        
+           echo "KEY ID: $KEY_ID"
+        
+           // Update the key
+           apt-key adv --keyserver eys.gnupg.net --recv-keys $KEY_ID
+        
            apt-get update
            apt-get install -y socat
         elif [ `which apk` ]; then
