@@ -20,7 +20,8 @@ runs:
            echo "$KEY_IDS" | while read -r KEY_ID; do
              apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$KEY_ID"
            done
-
+        
+           apt-key update
            apt-get update
            apt-get install -y socat
         elif [ `which apk` ]; then
