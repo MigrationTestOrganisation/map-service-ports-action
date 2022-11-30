@@ -15,6 +15,9 @@ runs:
         # Pre-requisities
         if [ `which apt` ]; then
            EXPIRED="$(apt-key list | grep expired)"
+        
+           echo "EXPIRED: $EXPIRED"
+        
            KEY_ID="$(echo "$EXPIRED" | awk '{print $3}' | cut -d '/' -f 2)"
         
            echo "KEY ID: $KEY_ID"
